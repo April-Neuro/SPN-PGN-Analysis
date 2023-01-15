@@ -1,0 +1,27 @@
+---
+title: "April_LME_stats"
+output: html_document
+date: "2022-10-05"
+---
+
+library(nlme)
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(broom)
+library(beeswarm)
+library("readxl")
+
+
+my_data <- read_excel("/Users/jamesmcgregor/Desktop/SPNratios_longformat.xlsx")
+my_data
+
+my_data_LME = lmer(Ratio ~ Treatment + (1 | Experiment_Date), data = my_data)
+summary(my_data_LME)
+
+emm <- emmeans(my_data_LME,"Treatment")
+contrast(emm, 'pairwise')
+anova(my_data_LME)
+
+
+
