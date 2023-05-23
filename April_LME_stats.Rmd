@@ -13,7 +13,7 @@ library(beeswarm)
 library("readxl")
 
 
-my_data <- read_excel("/Users/jamesmcgregor/Desktop/SPNratios_longformat.xlsx")
+my_data <- read_excel(""C:\Users\april\Documents\data\Imaging\Summary\JNM_analysis\SPNratios_longformat.xlsx")
 my_data
 
 my_data_LME = lmer(Ratio ~ Treatment + (1 | Experiment_Date), data = my_data)
