@@ -1,0 +1,40 @@
+---
+title: "April_LME_stats"
+output: html_document
+date: "2022-10-05"
+---
+
+install.packages('lme4')
+install.packages('lmerTest')
+install.packages('emmeans')
+install.packages('beeswarm')
+install.packages('Rcpp')
+
+
+library(nlme)
+library(lme4)
+library(lmerTest)
+#library(emmeans)
+library(broom)
+library(beeswarm)
+library("readxl")
+
+
+myData <- read_excel('/Users/april/Documents/WennerLAb/Intracellular/longFormat.xlsx')
+#myData <- myData[-c(281, 282, 283, 284, 285, 286, 287, 288, 289, 290), ]
+myData <- myData[myData$step >= 20,]
+myData <- myData[myData$step <= 55,]
+
+#only want to test 20: 55 because that part of the data is linear
+
+my_data_LME = lmer(Freq_APs*step ~ Treatment + (1 | ExpDate) + (1 | Sweep), data = myData)
+#HOW to do repeated measures? 
+summary(my_data_LME)
+
+#emm <- emmeans(my_data_LME,"Treatment") #need to update R first
+#contrast(emm, 'pairwise')
+anova(my_data_LME)
+
+
+
+
